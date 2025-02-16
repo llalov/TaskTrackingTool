@@ -9,5 +9,5 @@ Currently, two official plugins are available:
 
 Run locally:
 1. npm i
-2. npm run watch
+2. npm run dev
 3. start live server on index.html
