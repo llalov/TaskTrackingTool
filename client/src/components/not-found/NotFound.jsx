@@ -5,8 +5,8 @@ export default function NotFound(){
           This example requires updating your template:
   
           ```
-          <html class="h-full">
-          <body class="h-full">
+          <html className="h-full">
+          <body className="h-full">
           ```
         */}
         <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">

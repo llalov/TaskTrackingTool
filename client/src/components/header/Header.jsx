@@ -2,10 +2,10 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Dashboard', href: '/tasks-list', current: true },
+  // { name: 'Team', href: '#', current: false },
+  // { name: 'Projects', href: '#', current: false },
+  // { name: 'Calendar', href: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -55,10 +55,9 @@ export default function Header() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <button class="bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 hover:cursor-pointer">
-          Create Task
-          </button>
-
+              <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 hover:cursor-pointer">
+                  Create Task
+              </button>
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -140,4 +139,3 @@ export default function Header() {
     </header>
     );
 }
-
