@@ -7,6 +7,7 @@ import About from './components/about/About'
 import TasksList from './components/tasks-list/TasksList'
 import TaskCreate from './components/task-create/TaskCreate'
 import TaskEdit from './components/task-edit/TaskEdit'
+import TaskDetails from './components/task-details/TaskDetails'
 import NotFound from './components/not-found/NotFound'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/tasks-list' element={<TasksList/>}/>
           <Route path='/task-create' element={<TaskCreate/>}/>
           <Route path='/task-edit' element={<TaskEdit/>}/>
+          <Route path='/task-details' element={<TaskDetails/>}/>
           <Route path='/not-found' element={<NotFound/>}/>
         </Routes>
       </main>
