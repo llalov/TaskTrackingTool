@@ -20,9 +20,9 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/tasks-list' element={<TasksList/>}/>
-          <Route path='/task-create' element={<TaskCreate/>}/>
-          <Route path='/task-edit' element={<TaskEdit/>}/>
-          <Route path='/task-details' element={<TaskDetails/>}/>
+          <Route path='/tasks/create' element={<TaskCreate/>}/>
+          <Route path='/tasks/:taskId/edit' element={<TaskEdit/>}/>
+          <Route path='/tasks/:taskId/details' element={<TaskDetails/>}/>
           <Route path='/not-found' element={<NotFound/>}/>
         </Routes>
       </main>

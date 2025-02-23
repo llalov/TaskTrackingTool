@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useEffect} from "react";
+import {Link} from "react-router-dom";
+
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import * as tasksAPI from "../../api/tasks-api";
+import tasksAPI from "../../api/tasks-api";
 
 export default function TasksList() {
     const [tasks, setTasks] = useState([]);
@@ -32,7 +34,7 @@ export default function TasksList() {
                             ref={provided.innerRef}
                             className="space-y-2"
                         >
-                            {tasks ? tasks.map((task, index) => (
+                            {tasks.length > 0    ? tasks.map((task, index) => (
                                 <Draggable
                                     key={task.id}
                                     draggableId={task.id}
@@ -53,7 +55,7 @@ export default function TasksList() {
                                                 />
                                                 <div>
                                                     <h2 className="text-lg font-medium text-gray-900">
-                                                        {task.title}
+                                                        <Link to={`/tasks/${task.id}/details`}>{task.title}</Link>
                                                     </h2>
                                                     <p className="text-sm text-gray-600">
                                                         Assigned to: {task.assignee.name}

@@ -1,7 +1,7 @@
 
-[
-    {
-        "id" : "1",
+{
+    "0":{
+        "id" : "0",
         "title": "Implement asdasdasda user authentication",
         "assignee": { "name": "John Doe", "avatar": "https://i.pravatar.cc/40?img=1" },
         "boardId": 1,
@@ -11,8 +11,8 @@
         "description": "Create user authentication using social media profiles, FB, Gmail or in site registration",
         "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
     },
-    {
-        "id" : "2",
+    "1":{
+        "id" : "1",
         "title": "Refactor database schema",
         "assignee": { "name": "Jane Smith", "avatar": "https://i.pravatar.cc/40?img=2" },
         "boardId": 1,
@@ -22,8 +22,8 @@
         "description": "Refactor database according to the new requirements.",
         "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
     },
-    {
-        "id" : "3",
+    "2":{
+        "id" : "2",
         "title": "Fix payment gateway bug",
         "assignee": { "name": "Alice Brown", "avatar": "https://i.pravatar.cc/40?img=3" },
         "boardId": 1,
@@ -33,8 +33,8 @@
         "description": "Investigate and fix payment gateway but. Share findings.",
         "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
     },
-    {
-        "id" : "4",
+    "3":{
+        "id" : "3",
         "title": "Implement user authentication",
         "assignee": { "name": "Greg Willis", "avatar": "https://i.pravatar.cc/40?img=8" },
         "boardId": 1,
@@ -44,4 +44,4 @@
         "description": "Create user authentication using social media profiles, FB, Gmail or in site registration",
         "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
     }
-]
+}

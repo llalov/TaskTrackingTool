@@ -56,7 +56,7 @@ export default function Header() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <Link to="/task-create"
+              <Link to="/tasks/create"
                   className="bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 hover:cursor-pointer"
                   >
                   Create Task

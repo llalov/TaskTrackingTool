@@ -10,3 +10,21 @@ export const getAll = async () => {
     return tasks;
 } 
 
+export const getOne = async (taskId) => {
+    try {
+      const response = await request.get(`${BASE_URL}/${taskId}`);
+      return response;
+    } catch (error) {
+      console.error("Error fetching task:", error);
+      return null;
+    }
+  };
+
+
+const tasksAPI = {
+    getOne,
+    getAll
+};
+
+export default tasksAPI;
+

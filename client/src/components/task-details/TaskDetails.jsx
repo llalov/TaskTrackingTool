@@ -1,61 +1,65 @@
+import { useEffect, useState } from "react";
+import tasksAPI from "../../api/tasks-api";
+import { useParams } from "react-router-dom";
+
 export default function TaskDetails() {
-    const task = {
-      id: "1",
-      title: "Implement user authentication",
-      remainingTime: "2d 4h",
-      assignee: { name: "John Doe", avatar: "https://i.pravatar.cc/40?img=1" },
-      statuts: 'In Progress',
-      originalEstimate: '12h',
-      remainingEstimate: '4h',
-      description: "Create user authentication using social media profiles, FB, Gmail or in site registration",
-      createdBy: { name: "Lachezar Lalov", avatar: "https://i.pravatar.cc/40?img=33" },
-  };
+
+    const [task, setTask] = useState({}); 
+    const {taskId} = useParams()
+
+    useEffect(() => {
+        (async() => {
+            const result = await tasksAPI.getOne(taskId);
+            setTask(result)
+        })();
+    },[taskId])
 
     return (
+
       <div className="max-w-4xl mx-auto p-6 bg-gray-100 min-h-screen">
         <div className="mt-10 bg-white shadow-lg rounded-lg p-6">
-          <h1 className="text-2xl font-bold text-gray-900">{task.title}</h1>
-          <p className="text-gray-600 text-sm">Created on: {task.dateCreated}</p>
+          <h1 className="text-2xl font-bold text-gray-900">{task?.title}</h1>
+          <p className="text-gray-600 text-sm">Created on: {task?.dateCreated}</p>
   
           <div className="mt-4 flex items-center gap-4">
             <div className="flex items-center gap-2">
               <img
-                src={task.assignee.avatar}
-                alt={task.assignee.name}
+                src={task.assignee?.avatar}
+                alt={task.assignee?.name}
                 className="w-10 h-10 rounded-full"
               />
-              <span className="text-gray-800">Assignee: {task.assignee.name}</span>
+              <span className="text-gray-800">Assignee: {task.assignee?.name}</span>
             </div>
             <div className="flex items-center gap-2">
               <img
-                src={task.createdBy.avatar}
-                alt={task.createdBy.name}
+                src={task.createdBy?.avatar}
+                alt={task.createdBy?.name}
                 className="w-10 h-10 rounded-full"
               />
-              <span className="text-gray-800">Created by: {task.createdBy.name}</span>
+              <span className="text-gray-800">Created by: {task.createdBy?.name}</span>
             </div>
           </div>
   
           <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700">Status</label>
             <span className={`inline-block px-3 py-1 text-sm font-semibold rounded-full mt-1 
-              ${task.status === 'Not Started' ? 'bg-gray-300 text-gray-800' : ''}
-              ${task.status === 'In Progress' ? 'bg-blue-200 text-blue-800' : ''}
-              ${task.status === 'Ready for Testing' ? 'bg-yellow-200 text-yellow-800' : ''}
-              ${task.status === 'In Testing' ? 'bg-purple-200 text-purple-800' : ''}
-              ${task.status === 'Done' ? 'bg-green-200 text-green-800' : ''}`}> 
-              {task.status}
+              ${task?.status === 'Not Started' ? 'bg-gray-300 text-gray-800' : ''}
+              ${task?.status === 'In Progress' ? 'bg-blue-200 text-blue-800' : ''}
+              ${task?.status === 'Ready for Testing' ? 'bg-yellow-200 text-yellow-800' : ''}
+              ${task?.status === 'In Testing' ? 'bg-purple-200 text-purple-800' : ''}
+              ${task?.status === 'Done' ? 'bg-green-200 text-green-800' : ''}`}> 
+              {task?.status}
             </span>
           </div>
   
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">Original Estimate</label>
-              <p className="text-gray-900 font-semibold">{task.originalEstimate}</p>
+              <p className="text-gray-900 font-semibold">{task?.originalEstimate }</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">Remaining Estimate</label>
-              <p className="text-gray-900 font-semibold">{task.remainingEstimate}</p>
+              <p className="text-gray-900 font-semibold">{task?.remainingEstimate}</p>
             </div>
           </div>
   
