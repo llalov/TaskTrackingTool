@@ -1,0 +1,47 @@
+
+[
+    {
+        "id" : "1",
+        "title": "Implement asdasdasda user authentication",
+        "assignee": { "name": "John Doe", "avatar": "https://i.pravatar.cc/40?img=1" },
+        "boardId": 1,
+        "statuts": "In Progress",
+        "originalEstimate": "12h",
+        "remainingEstimate": "4h",
+        "description": "Create user authentication using social media profiles, FB, Gmail or in site registration",
+        "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
+    },
+    {
+        "id" : "2",
+        "title": "Refactor database schema",
+        "assignee": { "name": "Jane Smith", "avatar": "https://i.pravatar.cc/40?img=2" },
+        "boardId": 1,
+        "statuts": "In Progress",
+        "originalEstimate": "12h",
+        "remainingEstimate": "4h",
+        "description": "Refactor database according to the new requirements.",
+        "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
+    },
+    {
+        "id" : "3",
+        "title": "Fix payment gateway bug",
+        "assignee": { "name": "Alice Brown", "avatar": "https://i.pravatar.cc/40?img=3" },
+        "boardId": 1,
+        "statuts": "Not started",
+        "originalEstimate": "12h",
+        "remainingEstimate": "4h",
+        "description": "Investigate and fix payment gateway but. Share findings.",
+        "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
+    },
+    {
+        "id" : "4",
+        "title": "Implement user authentication",
+        "assignee": { "name": "Greg Willis", "avatar": "https://i.pravatar.cc/40?img=8" },
+        "boardId": 1,
+        "statuts": "Done",
+        "originalEstimate": "12h",
+        "remainingEstimate": "4h",
+        "description": "Create user authentication using social media profiles, FB, Gmail or in site registration",
+        "createdBy": { "name": "Lachezar Lalov", "avatar": "https://i.pravatar.cc/40?img=33" }
+    }
+]

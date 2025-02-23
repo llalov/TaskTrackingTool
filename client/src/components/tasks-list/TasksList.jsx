@@ -1,28 +1,15 @@
 import { useState } from "react";
+import { useEffect} from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import * as tasksAPI from "../../api/tasks-api";
 
 export default function TasksList() {
+    const [tasks, setTasks] = useState([]);
 
-   const [tasks, setTasks] = useState([
-        {
-            id: "1",
-            title: "Implement user authentication",
-            remainingTime: "2d 4h",
-            assignee: { name: "John Doe", avatar: "https://i.pravatar.cc/40?img=1" },
-        },
-        {
-            id: "2",
-            title: "Refactor database schema",
-            remainingTime: "1d 6h",
-            assignee: { name: "Jane Smith", avatar: "https://i.pravatar.cc/40?img=2" },
-        },
-        {
-            id: "3",
-            title: "Fix payment gateway bug",
-            remainingTime: "3h",
-            assignee: { name: "Alice Brown", avatar: "https://i.pravatar.cc/40?img=3" },
-        },
-    ]);
+    useEffect(() => {
+        tasksAPI.getAll()
+            .then(result => setTasks(result));
+    }, []);
 
     const handleDragEnd = (result) => {
         if (!result.destination) return; // Exit if dropped outside the list
@@ -45,7 +32,7 @@ export default function TasksList() {
                             ref={provided.innerRef}
                             className="space-y-2"
                         >
-                            {tasks.map((task, index) => (
+                            {tasks ? tasks.map((task, index) => (
                                 <Draggable
                                     key={task.id}
                                     draggableId={task.id}
@@ -74,12 +61,12 @@ export default function TasksList() {
                                                 </div>
                                             </div>
                                             <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
-                                                {task.remainingTime}
+                                                {task.remainingEstimate}
                                             </span>
                                         </div>
                                     )}
                                 </Draggable>
-                            ))}
+                            )) : <h1>No pending tasks.</h1>}
                             {provided.placeholder}
                         </div>
                     )}

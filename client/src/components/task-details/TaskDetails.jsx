@@ -1,5 +1,5 @@
 export default function TaskDetails() {
-    let task = {
+    const task = {
       id: "1",
       title: "Implement user authentication",
       remainingTime: "2d 4h",
