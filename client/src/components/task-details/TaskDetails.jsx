@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import tasksAPI from "../../api/tasks-api";
+import commentsAPI from "../../api/comments-api";
 import { useParams } from "react-router-dom";
 
 export default function TaskDetails() {
@@ -12,15 +13,17 @@ export default function TaskDetails() {
         (async () => {
             const result = await tasksAPI.getOne(taskId);
             setTask(result);
-            setComments(result.comments || []);
+            setComments(Object.values(result?.comments) || []);
         })();
     }, [taskId]);
 
     const handleAddComment = async () => {
         if (!newComment.trim()) return;
-        const updatedComments = [...comments, { text: newComment, date: new Date().toLocaleString() }];
+        const dateCreated = new Date().toLocaleString();
+        const updatedComments = [...comments, { text: newComment, dateCreated: dateCreated }];
         setComments(updatedComments);
         setNewComment("");
+        await commentsAPI.create(task.id, 'anonymous', newComment, dateCreated);
         // Here you may want to call an API to save the comment to the backend
     };
 
@@ -92,7 +95,7 @@ export default function TaskDetails() {
                     <div className="mt-4">
                         <textarea
                             className="w-full p-3 border rounded-md focus:ring focus:ring-indigo-300"
-                            rows="3"
+                            rows="2"
                             placeholder="Add a comment..."
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
@@ -108,7 +111,7 @@ export default function TaskDetails() {
                         {comments.map((comment, index) => (
                             <div key={index} className="p-4 bg-gray-200 rounded-md">
                                 <p className="text-gray-900">{comment.text}</p>
-                                <p className="text-xs text-gray-600">{comment.date}</p>
+                                <p className="text-xs text-gray-600">{comment.dateCreated}</p>
                             </div>
                         ))}
                     </div>
