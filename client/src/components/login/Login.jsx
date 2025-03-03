@@ -2,6 +2,7 @@ import { useForm } from "../../hooks/useForm";
 import * as authApi from "../../api/authentication-api"
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import {Link} from 'react-router-dom';
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 export default function Login() {
@@ -63,9 +64,12 @@ export default function Login() {
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
+                  <Link 
+                    to="/register" 
+                    className="text-indigo-600 hover:text-indigo-500 font-semibold"
+                  >
+                      Don't have an account? Sign up here.
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">

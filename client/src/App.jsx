@@ -4,6 +4,7 @@ import {Routes, Route} from 'react-router-dom'
 import Header from "./components/header/Header"
 import Home from './components/home/Home'
 import Login from './components/login/Login'
+import Register from './components/register/Register'
 import About from './components/about/About'
 import TasksList from './components/tasks-list/TasksList'
 import TaskCreate from './components/task-create/TaskCreate'
@@ -34,6 +35,7 @@ function App() {
               <Routes>
                 <Route path='/home' element={<Home/>}/>
                 <Route path='/login' element={<Login/>}/>
+                <Route path='/register' element={<Register/>}/>
                 <Route path='/about' element={<About/>}/>
                 <Route path='/tasks-list' element={<TasksList/>}/>
                 <Route path='/tasks/create' element={<TaskCreate/>}/>
