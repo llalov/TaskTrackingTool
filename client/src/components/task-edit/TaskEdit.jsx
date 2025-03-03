@@ -52,7 +52,7 @@ export default function TaskEdit() {
                   <input
                     type="text"
                     name="title"
-                    id="title"
+                    id="edit-title"
                     value={formData.title}
                     onChange={handleChange}
                     required
@@ -69,7 +69,7 @@ export default function TaskEdit() {
                   <input
                     type="text"
                     name="assignee"
-                    id="assignee"
+                    id="edit-assignee"
                     value={formData.assignee}
                     onChange={handleChange}
                     required
@@ -86,7 +86,7 @@ export default function TaskEdit() {
                   <input
                     type="text"
                     name="createdBy"
-                    id="createdBy"
+                    id="edit-createdBy"
                     value={formData.createdBy}
                     onChange={handleChange}
                     required
@@ -103,7 +103,7 @@ export default function TaskEdit() {
                   <input
                     type="text"
                     name="originalEstimate"
-                    id="originalEstimate"
+                    id="edit-originalEstimate"
                     value={formData.originalEstimate}
                     onChange={handleChange}
                     required
@@ -120,7 +120,7 @@ export default function TaskEdit() {
                   <input
                     type="text"
                     name="remainingEstimate"
-                    id="remainingEstimate"
+                    id="edit-remainingEstimate"
                     value={formData.remainingEstimate}
                     onChange={handleChange}
                     required
@@ -136,7 +136,7 @@ export default function TaskEdit() {
                 <div className="mt-2">
                   <textarea
                     name="description"
-                    id="description"
+                    id="edit-description"
                     value={formData.description}
                     onChange={handleChange}
                     required
@@ -153,7 +153,7 @@ export default function TaskEdit() {
                   <input
                     type="date"
                     name="dateCreated"
-                    id="dateCreated"
+                    id="edit-dateCreated"
                     value={formData.dateCreated}
                     onChange={handleChange}
                     required
@@ -169,7 +169,7 @@ export default function TaskEdit() {
                 <div className="mt-2">
                   <select
                     name="status"
-                    id="status"
+                    id="edit-status"
                     value={formData.status}
                     onChange={handleChange}
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"

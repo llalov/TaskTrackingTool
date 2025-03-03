@@ -1,9 +1,12 @@
 import { useForm } from "../../hooks/useForm";
 import * as authApi from "../../api/authentication-api"
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 export default function Login() {
     const navigate = useNavigate();
+    const {changeAuthState} = useContext(AuthenticationContext);
 
     const {values, changeHandler, submitHandler} = useForm(
       {email: '', password: ''},
@@ -11,7 +14,7 @@ export default function Login() {
         try{
             const authData = await authApi.login(email, password);
             console.log(authData);
-            //TODO: Save username to context
+            changeAuthState(authData);
             navigate('/home');
         }
         catch(error){
