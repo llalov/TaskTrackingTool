@@ -14,8 +14,12 @@ async function requester(method, url, data) {
     }
 
     const response = await fetch(url, options);
-    const result = response.json();
+    const result = await response.json();
 
+    if(!response.ok) {
+        throw new Error(result.message || "Request failed");
+    }
+    
     return result;
 }
 

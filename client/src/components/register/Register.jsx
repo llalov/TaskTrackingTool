@@ -1,29 +1,30 @@
 import { useForm } from "../../hooks/useForm";
 import * as authApi from "../../api/authentication-api";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 export default function Register() {
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
     const { changeAuthState } = useContext(AuthenticationContext);
 
     const { values, changeHandler, submitHandler } = useForm(
       { email: "", password: "", confirmPassword: "" },
       async ({ email, password, confirmPassword }) => {
         if (password !== confirmPassword) {
-          console.log("Passwords do not match.");
-          return;
-        }
+            setErrorMessage("Passwords do not match."); 
+            return;
+          }
+          setErrorMessage("");
 
         try {
-          const authData = await authApi.register(email, password);
-          console.log(authData);
-          changeAuthState(authData);
-          navigate("/home");
+            const authData = await authApi.register(email, password);
+            changeAuthState(authData);
+            navigate("/home");
         } 
-        catch (error) {
-          console.log(`Registration failed. ${error.message}`);
+        catch (err) {
+            setErrorMessage(err.message);
         }
       }
     );
@@ -92,7 +93,9 @@ export default function Register() {
                   />
                 </div>
               </div>
-  
+                {errorMessage && (
+                    <p className="mt-2 text-sm text-red-600">{errorMessage}</p>
+                )}
               <div>
                 <button
                   type="submit"
