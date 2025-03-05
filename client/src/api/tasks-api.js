@@ -1,6 +1,6 @@
 import * as request from "./requester";
 
-const BASE_URL = 'http://localhost:3030/jsonstore/tasks-list'
+const BASE_URL = 'http://localhost:3030/data/tasks-list'
 
 export const getAll = async () => {
     const result = await request.get(BASE_URL);
@@ -10,21 +10,16 @@ export const getAll = async () => {
     return tasks;
 } 
 
-export const getOne = async (taskId) => {
-    try {
-      const response = await request.get(`${BASE_URL}/${taskId}`);
-      return response;
-    } catch (error) {
-      console.error("Error fetching task:", error);
-      return null;
-    }
-  };
+export const getOne = (taskId) => request.get(`${BASE_URL}/${taskId}`);
+
+export const create = (gameData) => request.post(`${BASE_URL}`, gameData);
 
 
 const tasksAPI = {
     getOne,
-    getAll
+    getAll,
+    create
 };
-
+ 
 export default tasksAPI;
 

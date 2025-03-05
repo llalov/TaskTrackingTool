@@ -15,10 +15,12 @@ export default function Login() {
         try{
             const authData = await authApi.login(email, password);
             console.log(authData);
+             //TODO: FIX
             changeAuthState(authData);
             navigate('/home');
         }
         catch(error){
+          //TODO: FIX
             console.log(`Login failed. ${error.message}`)
         }
       }
