@@ -1,6 +1,10 @@
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 export default function Home() {
+    const {isAuthenticated} = useContext(AuthenticationContext);
+
     return(
         <div className="bg-white">
       <div className="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
@@ -20,22 +24,34 @@ export default function Home() {
           </svg>
           <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
             <h2 className="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">
-              Boost your productivity. Start using our app today.
+              Boost your productivity.
             </h2>
             {/* <p className="mt-6 text-lg/8 text-pretty text-gray-300">
               Ac euismod vel sit maecenas id pellentesque eu sed consectetur. Malesuada adipiscing sagittis vel nulla.
             </p> */}
-            <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-              <Link
-                to="/login"
-                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Sign in or Register
-              </Link>
-              <Link to="/about" className="text-sm/6 font-semibold text-white">
-                Learn more <span aria-hidden="true">→</span>
-              </Link>
-            </div>
+
+            {!isAuthenticated ? (
+              <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                <Link
+                  to="/login"
+                  className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  Sign in or Register
+                </Link>
+                <Link to="/about" className="text-sm/6 font-semibold text-white">
+                  Learn more <span aria-hidden="true">→</span>
+                </Link>
+              </div>) : 
+              (<div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                <Link
+                  to="/tasks/create"
+                  className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                    Get started now...
+                </Link>
+              </div>)
+            
+          }
           </div>
           <div className="relative mt-16 h-80 lg:mt-8">
             <img

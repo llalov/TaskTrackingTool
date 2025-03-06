@@ -6,7 +6,7 @@ import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 const navigation = [
   { name: 'Dashboard', to: '/tasks-list', current: true },
-  // { name: 'Team', to: '#', current: false },
+  { name: 'Create Task', to: '/tasks/create', current: true }
   // { name: 'Projects', to: '#', current: false },
   // { name: 'Calendar', to: '#', current: false },
 ]
@@ -53,8 +53,7 @@ export default function Header() {
                     to={item.to}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium',
+                      'bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 hover:cursor-pointer',
                     )}
                   >
                     {item.name}
@@ -64,23 +63,6 @@ export default function Header() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <Link to="/tasks/create"
-                  className="bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 hover:cursor-pointer"
-                  >
-                  Create Task
-              </Link>
-          </div>
-
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="size-6" />
-            </button>
-
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <div>
@@ -97,23 +79,7 @@ export default function Header() {
               <MenuItems
                 transition
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                <MenuItem>
-                  <Link
-                    to="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Your Profile
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    to="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Settings
-                  </Link>
-                </MenuItem>
+              >        
                 <MenuItem>
                   <Link
                     to="/logout"

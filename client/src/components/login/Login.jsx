@@ -14,9 +14,6 @@ export default function Login() {
       async ({email, password}) => {
         try{
             const authData = await authApi.login(email, password);
-            
-            console.log(authData);
-             //TODO: FIX
             changeAuthState(authData);
             navigate('/home');
         }

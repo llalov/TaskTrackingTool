@@ -2,7 +2,9 @@ import { createContext, useState } from "react";
 import usePersistedState from "../hooks/usePersistedState";
 
 export const AuthenticationContext = createContext({
+    id: '',
     email: '',
+    username: '',
     accessToken: '',
     isAuthenticated: false,
     changeAuthState: (authState = {}) => null,
