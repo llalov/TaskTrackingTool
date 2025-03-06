@@ -11,6 +11,7 @@ import TaskEdit from './components/task-edit/TaskEdit'
 import TaskDetails from './components/task-details/TaskDetails'
 import NotFound from './components/not-found/NotFound'
 import { AuthenticationContextProvider } from './contexts/AuthenticationContext'
+import Logout from './components/logout/Logout'
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
               <Routes>
                 <Route path='/home' element={<Home/>}/>
                 <Route path='/login' element={<Login/>}/>
+                <Route path='/logout' element={<Logout/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/about' element={<About/>}/>
                 <Route path='/tasks-list' element={<TasksList/>}/>

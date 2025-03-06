@@ -21,7 +21,6 @@ export default function Login() {
             navigate('/home');
         }
         catch(error){
-          //TODO: FIX
             console.log(`Login failed. ${error.message}`)
         }
       }

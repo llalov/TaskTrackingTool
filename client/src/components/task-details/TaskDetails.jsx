@@ -13,7 +13,7 @@ export default function TaskDetails() {
         (async () => {
             const result = await tasksAPI.getOne(taskId);
             setTask(result);
-            setComments(Object.values(result?.comments) || []);
+            setComments(result?.comments || []);
         })();
     }, [taskId]);
 
