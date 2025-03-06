@@ -36,8 +36,8 @@ export default function TasksList() {
                         >
                             {tasks.length > 0    ? tasks.map((task, index) => (
                                 <Draggable
-                                    key={task.id}
-                                    draggableId={task.id}
+                                    key={task._id}
+                                    draggableId={task._id}
                                     index={index}
                                 >
                                     {(provided) => (
@@ -50,15 +50,15 @@ export default function TasksList() {
                                             <div className="flex items-center gap-4">
                                                 <img
                                                     src={task.assignee.avatar}
-                                                    alt={task.assignee.name}
+                                                    alt={task.assignee}
                                                     className="w-10 h-10 rounded-full"
                                                 />
                                                 <div>
                                                     <h2 className="text-lg font-medium text-gray-900">
-                                                        <Link to={`/tasks/${task.id}/details`}>{task.title}</Link>
+                                                        <Link to={`/tasks/${task._id}/details`}>{task.title}</Link>
                                                     </h2>
                                                     <p className="text-sm text-gray-600">
-                                                        Assigned to: {task.assignee.name}
+                                                        Assigned to: {task.assignee}
                                                     </p>
                                                 </div>
                                             </div>

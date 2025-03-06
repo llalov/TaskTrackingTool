@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import usePersistedState from "../hooks/usePersistedState";
 
 export const AuthenticationContext = createContext({
     email: '',
@@ -8,17 +9,16 @@ export const AuthenticationContext = createContext({
 });
 
 export function AuthenticationContextProvider(props){
-    const [authState, setAuthState] = useState({});
+    const [authState, setAuthState] = usePersistedState('authenticationData',{});
 
     const changeAuthState = (state) => {
-        localStorage.setItem('isAuthenticated', state.isAuthenticated)
-        localStorage.setItem('accessToken', state.accessToken)
-        localStorage.setItem('email', state.email)
         setAuthState(state);
     };
 
     const contextData = {
+        id: authState._id,
         email: authState.email,
+        username: authState.username,
         accessToken: authState.accessToken,
         isAuthenticated: !!authState.email,
         changeAuthState

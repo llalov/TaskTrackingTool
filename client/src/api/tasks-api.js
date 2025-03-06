@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:3030/data/tasks-list'
 export const getAll = async () => {
     const result = await request.get(BASE_URL);
 
-    const tasks = Object.values(result);
+    const tasks = result;
 
     return tasks;
 } 

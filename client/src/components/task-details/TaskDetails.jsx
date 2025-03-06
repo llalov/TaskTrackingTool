@@ -23,8 +23,7 @@ export default function TaskDetails() {
         const updatedComments = [...comments, { text: newComment, dateCreated: dateCreated }];
         setComments(updatedComments);
         setNewComment("");
-        await commentsAPI.create(task.id, 'anonymous', newComment, dateCreated);
-        // Here you may want to call an API to save the comment to the backend
+        await commentsAPI.create(task.id, 'anonymous', newComment, dateCreated)
     };
 
     return (
@@ -37,18 +36,18 @@ export default function TaskDetails() {
                     <div className="flex items-center gap-2">
                         <img 
                           src={task.assignee?.avatar} 
-                          alt={task.assignee?.name} 
+                          alt={task.assignee} 
                           className="w-10 h-10 rounded-full" 
                           />
-                        <span className="text-gray-800">Assignee: {task.assignee?.name}</span>
+                        <span className="text-gray-800">Assignee: {task.assignee}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <img 
                         src={task.createdBy?.avatar} 
-                        alt={task.createdBy?.name} 
+                        alt={task.createdBy} 
                         className="w-10 h-10 rounded-full" 
                         />
-                        <span className="text-gray-800">Created by: {task.createdBy?.name}</span>
+                        <span className="text-gray-800">Created by: {task.createdBy}</span>
                     </div>
                 </div>
 
