@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {Routes, Route} from 'react-router-dom'
 
 import Header from "./components/header/Header"
@@ -11,24 +10,11 @@ import TaskCreate from './components/task-create/TaskCreate'
 import TaskEdit from './components/task-edit/TaskEdit'
 import TaskDetails from './components/task-details/TaskDetails'
 import NotFound from './components/not-found/NotFound'
-import { AuthenticationContext } from './contexts/AuthenticationContext'
+import { AuthenticationContextProvider } from './contexts/AuthenticationContext'
 
 function App() {
-    const [authState, setAuthState] = useState({});
-
-    const changeAuthState = (state) => {
-        setAuthState(state);
-    };
-
-    const contextData = {
-        email: authState.email,
-        accessToken: authState.accessToken,
-        isAuthenticated: !!authState.email,
-        changeAuthState
-    };
-      
     return (
-      <AuthenticationContext.Provider value={contextData}>
+      <AuthenticationContextProvider>
           <div>
             <main>
               <Header/> 
@@ -45,7 +31,7 @@ function App() {
               </Routes>
             </main>
           </div>
-      </AuthenticationContext.Provider>
+      </AuthenticationContextProvider>
     )
 }
 
