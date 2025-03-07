@@ -1,29 +1,33 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import tasksAPI from "../../api/tasks-api";
 import commentsAPI from "../../api/comments-api";
 import { useParams } from "react-router-dom";
+import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 export default function TaskDetails() {
     const [task, setTask] = useState({}); 
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const { taskId } = useParams();
+    const {isAuthenticated} = useContext(AuthenticationContext);
 
     useEffect(() => {
         (async () => {
-            const result = await tasksAPI.getOne(taskId);
-            setTask(result);
-            setComments(result?.comments || []);
+            const task = await tasksAPI.getOne(taskId);
+            setTask(task);
+
+            const comments = await commentsAPI.getAll(taskId);
+            setComments(comments || []);
         })();
     }, [taskId]);
 
     const handleAddComment = async () => {
         if (!newComment.trim()) return;
-        const dateCreated = new Date().toLocaleString();
-        const updatedComments = [...comments, { text: newComment, dateCreated: dateCreated }];
+        const dateCreated = Date.now();
+        const updatedComments = [...comments, { text: newComment, _createdOn: dateCreated }];
         setComments(updatedComments);
         setNewComment("");
-        await commentsAPI.create(task.id, 'anonymous', newComment, dateCreated)
+        await commentsAPI.create(taskId, newComment)
     };
 
     return (
@@ -87,9 +91,9 @@ export default function TaskDetails() {
                       Delete Task
                       </button>
                 </div>
-
                 {/* Comment Section */}
-                <div className="mt-6">
+                {isAuthenticated &&(     
+                    <div className="mt-6">
                     <h2 className="text-xl font-semibold text-gray-900">Comments</h2>
                     <div className="mt-4">
                         <textarea
@@ -110,11 +114,12 @@ export default function TaskDetails() {
                         {comments.map((comment, index) => (
                             <div key={index} className="p-4 bg-gray-200 rounded-md">
                                 <p className="text-gray-900">{comment.text}</p>
-                                <p className="text-xs text-gray-600">{comment.dateCreated}</p>
+                                <p className="text-xs text-gray-600">{new Date(comment._createdOn).toLocaleString()}</p>
                             </div>
                         ))}
                     </div>
                 </div>
+            )}
             </div>
         </div>
     );
