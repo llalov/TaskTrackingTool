@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import tasksAPI from "../../api/tasks-api";
 import commentsAPI from "../../api/comments-api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 export default function TaskDetails() {
+    const navigate = useNavigate();
     const [task, setTask] = useState({}); 
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
@@ -29,6 +30,16 @@ export default function TaskDetails() {
         setNewComment("");
         await commentsAPI.create(taskId, newComment)
     };
+
+    const taskDeleteHandler = async () => {
+        try{
+            await tasksAPI.remove(taskId);
+            navigate('/tasks-list');
+        }
+        catch(err) {
+            console.log(err.message);
+        }
+    }
 
     return (
         <div className="max-w-4xl mx-auto p-6 bg-gray-100 min-h-screen">
@@ -87,7 +98,9 @@ export default function TaskDetails() {
                     <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-500">
                       Edit Task
                       </button>
-                    <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-500">
+                    <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-500"
+                        onClick={taskDeleteHandler}
+                    >
                       Delete Task
                       </button>
                 </div>

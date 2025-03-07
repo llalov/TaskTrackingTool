@@ -12,13 +12,16 @@ export const getAll = async () => {
 
 export const getOne = (taskId) => request.get(`${BASE_URL}/${taskId}`);
 
-export const create = (gameData) => request.post(`${BASE_URL}`, gameData);
+export const create = (taskData) => request.post(`${BASE_URL}`, taskData);
+
+export const remove = (taskId) => request.del(`${BASE_URL}/${taskId}`); 
 
 
 const tasksAPI = {
     getOne,
     getAll,
-    create
+    create,
+    remove
 };
  
 export default tasksAPI;
