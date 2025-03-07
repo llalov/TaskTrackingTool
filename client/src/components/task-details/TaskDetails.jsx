@@ -9,7 +9,7 @@ export default function TaskDetails() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const { taskId } = useParams();
-    const {isAuthenticated} = useContext(AuthenticationContext);
+    const {isAuthenticated, username} = useContext(AuthenticationContext);
 
     useEffect(() => {
         (async () => {
@@ -24,7 +24,7 @@ export default function TaskDetails() {
     const handleAddComment = async () => {
         if (!newComment.trim()) return;
         const dateCreated = Date.now();
-        const updatedComments = [...comments, { text: newComment, _createdOn: dateCreated }];
+        const updatedComments = [...comments, { text: newComment, _createdOn: dateCreated, author: {username: username} }];
         setComments(updatedComments);
         setNewComment("");
         await commentsAPI.create(taskId, newComment)
@@ -113,6 +113,7 @@ export default function TaskDetails() {
                     <div className="mt-4 space-y-4">
                         {comments.map((comment, index) => (
                             <div key={index} className="p-4 bg-gray-200 rounded-md">
+                                <p className="text-gray-600">{comment.author?.username}</p>
                                 <p className="text-gray-900">{comment.text}</p>
                                 <p className="text-xs text-gray-600">{new Date(comment._createdOn).toLocaleString()}</p>
                             </div>

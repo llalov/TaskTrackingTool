@@ -12,7 +12,8 @@ const create = async (taskId,text) => {
 
 const getAll = async (taskId) => {
     const params = new URLSearchParams({
-        where: `taskId="${taskId}"`
+        where: `taskId="${taskId}"`,
+        load: `author=_ownerId:users`
     })
 
     const result = requester.get(`${BASE_URL}?${params.toString()}`);
