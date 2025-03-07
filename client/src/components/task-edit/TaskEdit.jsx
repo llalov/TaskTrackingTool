@@ -1,37 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import tasksAPI from "../../api/tasks-api";
+
+const initialValues = {
+  title: "",
+  assignee: "",
+  createdBy: "",
+  originalEstimate: "",
+  remainingEstimate: "",
+  description: "",
+  dateCreated: new Date().toISOString().substring(0, 10),
+  status: "not started",
+};
 
 export default function TaskEdit() {
-    const [formData, setFormData] = useState({
-        title: "",
-        assignee: "",
-        createdBy: "",
-        originalEstimate: "",
-        remainingEstimate: "",
-        description: "",
-        dateCreated: new Date().toISOString().substring(0, 10), // Default to today
-        status: "not started", // Default status
-    });
+    const navigate = useNavigate();
+    const {taskId} = useParams(); 
+    const [task, setTask] = useState({});
+    const [formData, setFormData] = useState(initialValues);
+
+    useEffect(() => {
+      (async () => {
+          const result = await tasksAPI.getOne(taskId);
+          setTask(result);
+      })();
+    }, [taskId])
+
+    //Reinitialize
+    useEffect(() => {
+        if (task && Object.keys(task).length > 0) {
+            setFormData(task);
+        }
+    }, [task])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        // Handle form submission (e.g., send data to API)
-        console.log("Task Created:", formData);
+
+        await tasksAPI.update(taskId, formData);
+
         // Reset form after submission
-        setFormData({
-            title: "",
-            assignee: "",
-            createdBy: "",
-            originalEstimate: "",
-            remainingEstimate: "",
-            description: "",
-            dateCreated: new Date().toISOString().substring(0, 10),
-            status: "not started",
-        });
+        setFormData(initialValues);
+
+        navigate(`/tasks/${taskId}/details`);
     };
 
     return (
@@ -188,7 +203,7 @@ export default function TaskEdit() {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Create Task
+                  Update
                 </button>
               </div>
             </form>

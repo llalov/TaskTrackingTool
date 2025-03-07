@@ -16,12 +16,14 @@ export const create = (taskData) => request.post(`${BASE_URL}`, taskData);
 
 export const remove = (taskId) => request.del(`${BASE_URL}/${taskId}`); 
 
+export const update = (taskId, taskData) => request.put(`${BASE_URL}/${taskId}`, taskData)
 
 const tasksAPI = {
     getOne,
     getAll,
     create,
-    remove
+    remove,
+    update
 };
  
 export default tasksAPI;

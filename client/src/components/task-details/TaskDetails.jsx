@@ -3,6 +3,7 @@ import tasksAPI from "../../api/tasks-api";
 import commentsAPI from "../../api/comments-api";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
+import {Link} from 'react-router-dom';
 
 export default function TaskDetails() {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function TaskDetails() {
         }
         catch(err) {
             console.log(err.message);
-        }
+        } 
     }
 
     return (
@@ -95,9 +96,9 @@ export default function TaskDetails() {
                 </div>
 
                 <div className="mt-6 flex gap-4">
-                    <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-500">
+                    <Link to={`/tasks/${taskId}/edit`} className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-500">
                       Edit Task
-                      </button>
+                    </Link>
                     <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-500"
                         onClick={taskDeleteHandler}
                     >
