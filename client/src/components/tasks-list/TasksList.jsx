@@ -7,10 +7,25 @@ import tasksAPI from "../../api/tasks-api";
 
 export default function TasksList() {
     const [tasks, setTasks] = useState([]);
-
     useEffect(() => {
-        tasksAPI.getAll()
-            .then(result => setTasks(result));
+        tasksAPI.getAll().then(result => {
+            //Keeps the order of the tasks in localstorage. Only for demonstration purpose. Generated with AI.
+            //If you want to persist the order, add order field in each task and show accordingly.
+            const savedOrder = localStorage.getItem("taskOrder");
+            if (savedOrder) {
+                const orderedIds = JSON.parse(savedOrder);
+                const orderedTasks = orderedIds
+                    .map(id => result.find(task => task._id === id))
+                    .filter(task => task); // Keep only valid tasks
+    
+                // Add any new tasks that aren't in localStorage yet
+                const newTasks = result.filter(task => !orderedIds.includes(task._id));
+    
+                setTasks([...orderedTasks, ...newTasks]); // Merge ordered & new tasks
+            } else {
+                setTasks(result);
+            }
+        });
     }, []);
 
     const handleDragEnd = (result) => {
@@ -21,10 +36,14 @@ export default function TasksList() {
         newTasks.splice(result.destination.index, 0, movedItem);
 
         setTasks(newTasks);
+
+        // Save new order to localStorage
+        const taskOrder = newTasks.map(task => task._id);
+        localStorage.setItem("taskOrder", JSON.stringify(taskOrder));
     }; 
       return (
         <div className="max-w-3xl mx-auto p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Tasks</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">Tasks</h1>
         <div className="bg-white shadow rounded-lg p-4">
             <DragDropContext onDragEnd={handleDragEnd}>
                 <Droppable droppableId="tasks">
@@ -49,7 +68,8 @@ export default function TasksList() {
                                         >
                                             <div className="flex items-center gap-4">
                                                 <img
-                                                    src={task.assignee.avatar}
+                                                    //src={task.assignee.avatar}
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
                                                     alt={task.assignee}
                                                     className="w-10 h-10 rounded-full"
                                                 />

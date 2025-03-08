@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import tasksAPI from "../../api/tasks-api";
 import { useNavigate } from "react-router-dom";
+import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 const initialValues = {
   title: "",
@@ -16,9 +17,11 @@ const initialValues = {
 
 export default function TaskCreate() {
     const navigate = useNavigate();
+    const {username, email} = useContext(AuthenticationContext);
 
     const createHandler = async(values) => {
       try {
+          values.createdBy = username ?? email;
           const {_id: taskId}  = await tasksAPI.create(values);
           navigate(`/tasks/${taskId}/details`);
       }
@@ -40,7 +43,7 @@ export default function TaskCreate() {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form onSubmit={submitHandler} className="space-y-6">
               <div>
-                <label htmlFor="title" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="task-title" className="block text-sm/6 font-medium text-gray-900">
                   Title
                 </label>
                 <div className="mt-2">
@@ -57,7 +60,7 @@ export default function TaskCreate() {
               </div>
     
               <div>
-                <label htmlFor="assignee" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="task-assignee" className="block text-sm/6 font-medium text-gray-900">
                   Assignee
                 </label>
                 <div className="mt-2">
@@ -74,7 +77,7 @@ export default function TaskCreate() {
               </div>
     
               <div>
-                <label htmlFor="createdBy" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="task-createdBy" className="block text-sm/6 font-medium text-gray-900">
                   Created By
                 </label>
                 <div className="mt-2">
@@ -82,7 +85,8 @@ export default function TaskCreate() {
                     type="text"
                     name="createdBy"
                     id="task-createdBy"
-                    value={values.createdBy}
+                    value={username ?? email}
+                    readOnly
                     onChange={changeHandler}
                     required
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -91,12 +95,12 @@ export default function TaskCreate() {
               </div>
     
               <div>
-                <label htmlFor="originalEstimate" className="block text-sm/6 font-medium text-gray-900">
-                  Original Estimate
+                <label htmlFor="task-originalEstimate" className="block text-sm/6 font-medium text-gray-900">
+                  Original Estimate (in hours)
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
+                    type="number"
                     name="originalEstimate"
                     id="task-originalEstimate"
                     value={values.originalEstimate}
@@ -108,12 +112,12 @@ export default function TaskCreate() {
               </div>
     
               <div>
-                <label htmlFor="remainingEstimate" className="block text-sm/6 font-medium text-gray-900">
-                  Remaining Estimate
+                <label htmlFor="task-remainingEstimate" className="block text-sm/6 font-medium text-gray-900">
+                  Remaining Estimate (in hours)
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
+                    type="number"
                     name="remainingEstimate"
                     id="task-remainingEstimate"
                     value={values.remainingEstimate}
@@ -125,7 +129,7 @@ export default function TaskCreate() {
               </div>
     
               <div>
-                <label htmlFor="description" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="task-description" className="block text-sm/6 font-medium text-gray-900">
                   Description
                 </label>
                 <div className="mt-2">
@@ -141,7 +145,7 @@ export default function TaskCreate() {
               </div>
     
               <div>
-                <label htmlFor="dateCreated" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="task-dateCreated" className="block text-sm/6 font-medium text-gray-900">
                   Date Created
                 </label>
                 <div className="mt-2">
@@ -158,7 +162,7 @@ export default function TaskCreate() {
               </div>
     
               <div>
-                <label htmlFor="status" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="task-status" className="block text-sm/6 font-medium text-gray-900">
                   Status
                 </label>
                 <div className="mt-2">
@@ -169,11 +173,11 @@ export default function TaskCreate() {
                     onChange={changeHandler}
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   >
-                    <option value="not started">Not Started</option>
-                    <option value="in progress">In Progress</option>
-                    <option value="ready for testing">Ready for Testing</option>
-                    <option value="in testing">In Testing</option>
-                    <option value="done">Done</option>
+                    <option value="Not started">Not Started</option>
+                    <option value="In progress">In Progress</option>
+                    <option value="Ready for testing">Ready for Testing</option>
+                    <option value="In testing">In Testing</option>
+                    <option value="Done">Done</option>
                   </select>
                 </div>
               </div>

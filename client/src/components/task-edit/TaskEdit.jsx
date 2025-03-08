@@ -41,7 +41,17 @@ export default function TaskEdit() {
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-        await tasksAPI.update(taskId, formData);
+        try{
+          await tasksAPI.update(taskId, formData);
+        }
+        catch(err) {
+          if(err.message === 'Forbidden'){
+            alert(`You don't have permissions to update this task!`);
+          }
+          else {
+            alert(`Unable to update task. Reason: ${err.message}`);
+          }
+        }
 
         // Reset form after submission
         setFormData(initialValues);
@@ -60,7 +70,7 @@ export default function TaskEdit() {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="title" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="edit-title" className="block text-sm/6 font-medium text-gray-900">
                   Title
                 </label>
                 <div className="mt-2">
@@ -77,7 +87,7 @@ export default function TaskEdit() {
               </div>
     
               <div>
-                <label htmlFor="assignee" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="edit-assignee" className="block text-sm/6 font-medium text-gray-900">
                   Assignee
                 </label>
                 <div className="mt-2">
@@ -94,7 +104,7 @@ export default function TaskEdit() {
               </div>
     
               <div>
-                <label htmlFor="createdBy" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="edit-createdBy" className="block text-sm/6 font-medium text-gray-900">
                   Created By
                 </label>
                 <div className="mt-2">
@@ -111,12 +121,12 @@ export default function TaskEdit() {
               </div>
     
               <div>
-                <label htmlFor="originalEstimate" className="block text-sm/6 font-medium text-gray-900">
-                  Original Estimate
+                <label htmlFor="edit-originalEstimate" className="block text-sm/6 font-medium text-gray-900">
+                  Original Estimate (in hours)
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
+                    type="number"
                     name="originalEstimate"
                     id="edit-originalEstimate"
                     value={formData.originalEstimate}
@@ -128,12 +138,12 @@ export default function TaskEdit() {
               </div>
     
               <div>
-                <label htmlFor="remainingEstimate" className="block text-sm/6 font-medium text-gray-900">
-                  Remaining Estimate
+                <label htmlFor="edit-remainingEstimate" className="block text-sm/6 font-medium text-gray-900">
+                  Remaining Estimate (in hours)
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
+                    type="number"
                     name="remainingEstimate"
                     id="edit-remainingEstimate"
                     value={formData.remainingEstimate}
@@ -145,7 +155,7 @@ export default function TaskEdit() {
               </div>
     
               <div>
-                <label htmlFor="description" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="edit-description" className="block text-sm/6 font-medium text-gray-900">
                   Description
                 </label>
                 <div className="mt-2">
@@ -161,7 +171,7 @@ export default function TaskEdit() {
               </div>
     
               <div>
-                <label htmlFor="dateCreated" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="edit-dateCreated" className="block text-sm/6 font-medium text-gray-900">
                   Date Created
                 </label>
                 <div className="mt-2">
@@ -178,7 +188,7 @@ export default function TaskEdit() {
               </div>
     
               <div>
-                <label htmlFor="status" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="edit-status" className="block text-sm/6 font-medium text-gray-900">
                   Status
                 </label>
                 <div className="mt-2">
@@ -189,11 +199,11 @@ export default function TaskEdit() {
                     onChange={handleChange}
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   >
-                    <option value="not started">Not Started</option>
-                    <option value="in progress">In Progress</option>
-                    <option value="ready for testing">Ready for Testing</option>
-                    <option value="in testing">In Testing</option>
-                    <option value="done">Done</option>
+                    <option value="Not started">Not Started</option>
+                    <option value="In progress">In Progress</option>
+                    <option value="Ready for testing">Ready for Testing</option>
+                    <option value="In testing">In Testing</option>
+                    <option value="Done">Done</option>
                   </select>
                 </div>
               </div>

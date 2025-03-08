@@ -34,8 +34,21 @@ export default function TaskDetails() {
 
     const taskDeleteHandler = async () => {
         try{
-            await tasksAPI.remove(taskId);
-            navigate('/tasks-list');
+            const isConfirmed = confirm(`Are you sure you want to delete task: '${task?.title}'?`);
+            if(isConfirmed) {
+                try {
+                    await tasksAPI.remove(taskId);
+                    navigate('/tasks-list');
+                }
+                catch(err) {
+                    if(err.message === 'Forbidden'){
+                        alert(`You don't have permissions to delete this task!`);
+                      }
+                    else {
+                        alert(`Unable to delete task. Reason: ${err.message}`);
+                    }
+                }
+            }
         }
         catch(err) {
             console.log(err.message);
@@ -51,29 +64,31 @@ export default function TaskDetails() {
                 <div className="mt-4 flex items-center gap-4">
                     <div className="flex items-center gap-2">
                         <img 
-                          src={task.assignee?.avatar} 
+                          //src={task.assignee?.avatar} 
+                          src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
                           alt={task.assignee} 
                           className="w-10 h-10 rounded-full" 
                           />
-                        <span className="text-gray-800">Assignee: {task.assignee}</span>
+                        <span className="text-gray-800"><i>Assignee: </i><b>{task.assignee}</b></span>
                     </div>
                     <div className="flex items-center gap-2">
                         <img 
-                        src={task.createdBy?.avatar} 
+                        //src={task.createdBy?.avatar} 
+                        src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
                         alt={task.createdBy} 
                         className="w-10 h-10 rounded-full" 
                         />
-                        <span className="text-gray-800">Created by: {task.createdBy}</span>
+                        <span className="text-gray-800"><i>Created by: </i> <b>{task.createdBy}</b></span>
                     </div>
                 </div>
 
                 <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-700">Status</label>
+                    <label className="block text-sm font-medium text-gray-700">Status: </label>
                     <span className={`inline-block px-3 py-1 text-sm font-semibold rounded-full mt-1 
-                        ${task?.status === 'Not Started' ? 'bg-gray-300 text-gray-800' : ''}
-                        ${task?.status === 'In Progress' ? 'bg-blue-200 text-blue-800' : ''}
-                        ${task?.status === 'Ready for Testing' ? 'bg-yellow-200 text-yellow-800' : ''}
-                        ${task?.status === 'In Testing' ? 'bg-purple-200 text-purple-800' : ''}
+                        ${task?.status === 'Not started' ? 'bg-gray-300 text-gray-800' : ''}
+                        ${task?.status === 'In progress' ? 'bg-blue-200 text-blue-800' : ''}
+                        ${task?.status === 'Ready for testing' ? 'bg-yellow-200 text-yellow-800' : ''}
+                        ${task?.status === 'In testing' ? 'bg-purple-200 text-purple-800' : ''}
                         ${task?.status === 'Done' ? 'bg-green-200 text-green-800' : ''}`}> 
                         {task?.status}
                     </span>
@@ -81,17 +96,15 @@ export default function TaskDetails() {
 
                 <div className="mt-4 grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Original Estimate</label>
-                        <p className="text-gray-900 font-semibold">{task?.originalEstimate }</p>
+                    <label className="block text-sm text-gray-700"><i>Original Estimate:</i> <b>{task?.originalEstimate}h.</b></label>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Remaining Estimate</label>
-                        <p className="text-gray-900 font-semibold">{task?.remainingEstimate}</p>
+                        <label className="block text-sm text-gray-700"><i>Remaining Estimate:</i> <b>{task?.remainingEstimate}h.</b></label>
                     </div>
                 </div>
 
                 <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <label className="block text-sm font-medium text-gray-500"><i>Description:</i></label>
                     <p className="text-gray-900 mt-1">{task.description}</p>
                 </div>
 
@@ -127,7 +140,7 @@ export default function TaskDetails() {
                     <div className="mt-4 space-y-4">
                         {comments.map((comment, index) => (
                             <div key={index} className="p-4 bg-gray-200 rounded-md">
-                                <p className="text-gray-600">{comment.author?.username}</p>
+                                <p className="text-gray-600">{comment.author?.email}</p>
                                 <p className="text-gray-900">{comment.text}</p>
                                 <p className="text-xs text-gray-600">{new Date(comment._createdOn).toLocaleString()}</p>
                             </div>

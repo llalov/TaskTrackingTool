@@ -10,8 +10,8 @@ export default function Register() {
     const { changeAuthState } = useContext(AuthenticationContext);
 
     const { values, changeHandler, submitHandler } = useForm(
-      { email: "", password: "", confirmPassword: "" },
-      async ({ email, password, confirmPassword }) => {
+      { email: "", username: "", password: "", confirmPassword: "" },
+      async ({ email, username, password, confirmPassword }) => {
         if (password !== confirmPassword) {
             setErrorMessage("Passwords do not match."); 
             return;
@@ -19,7 +19,7 @@ export default function Register() {
           setErrorMessage("");
 
         try {
-            const authData = await authApi.register(email, password);
+            const authData = await authApi.register(email,username, password);
             changeAuthState(authData);
             navigate("/home");
         } 
@@ -53,6 +53,24 @@ export default function Register() {
                     onChange={changeHandler}
                     required
                     autoComplete="email"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="register-username" className="block text-sm/6 font-medium text-gray-900">
+                  Username
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="register-username"
+                    name="username"
+                    type="username"
+                    value={values.username}
+                    onChange={changeHandler}
+                    required
+                    autoComplete="username"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   />
                 </div>
