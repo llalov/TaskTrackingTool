@@ -12,7 +12,7 @@ const initialValues = {
   remainingEstimate: "",
   description: "",
   dateCreated: new Date().toISOString().substring(0, 10),
-  status: "not started",
+  status: "Not started",
 };
 
 export default function TaskCreate() {
