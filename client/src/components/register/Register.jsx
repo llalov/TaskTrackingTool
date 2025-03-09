@@ -21,7 +21,7 @@ export default function Register() {
         try {
             const authData = await authApi.register(email,username, password);
             changeAuthState(authData);
-            navigate("/home");
+            navigate("/");
         } 
         catch (err) {
             setErrorMessage(err.message);

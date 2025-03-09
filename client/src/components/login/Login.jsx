@@ -15,7 +15,7 @@ export default function Login() {
         try{
             const authData = await authApi.login(email, password);
             changeAuthState(authData);
-            navigate('/home');
+            navigate('/');
         }
         catch(error){
             console.log(`Login failed. ${error.message}`)

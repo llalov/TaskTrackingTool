@@ -16,5 +16,5 @@ export default function Logout() {
         handleLogout();
     }, []);
 
-    return <Navigate to="/home" />
+    return <Navigate to="/" />
 }
