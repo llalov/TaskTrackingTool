@@ -12,6 +12,7 @@ import TaskDetails from './components/task-details/TaskDetails'
 import NotFound from './components/not-found/NotFound'
 import { AuthenticationContextProvider } from './contexts/AuthenticationContext'
 import Logout from './components/logout/Logout'
+import RouteGuard from './components/common/RouteGuard'
 
 function App() {
     return (
@@ -22,14 +23,17 @@ function App() {
               <Routes>
                 <Route path='/home' element={<Home/>}/>
                 <Route path='/login' element={<Login/>}/>
-                <Route path='/logout' element={<Logout/>}/>
-                <Route path='/register' element={<Register/>}/>
                 <Route path='/about' element={<About/>}/>
-                <Route path='/tasks-list' element={<TasksList/>}/>
-                <Route path='/tasks/create' element={<TaskCreate/>}/>
-                <Route path='/tasks/:taskId/edit' element={<TaskEdit/>}/>
-                <Route path='/tasks/:taskId/details' element={<TaskDetails/>}/>
+                <Route path='/register' element={<Register/>}/>
+                <Route element={<RouteGuard/>}>
+                    <Route path='/logout' element={<Logout/>}/>
+                    <Route path='/tasks-list' element={<TasksList/>}/>
+                    <Route path='/tasks/create' element={<TaskCreate/>}/>
+                    <Route path='/tasks/:taskId/edit' element={<TaskEdit/>}/>
+                    <Route path='/tasks/:taskId/details' element={<TaskDetails/>}/>
+                </Route>
                 <Route path='/not-found' element={<NotFound/>}/>
+                <Route path="*" element={<NotFound/>} />
               </Routes>
             </main>
           </div>
